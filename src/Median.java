@@ -10,35 +10,41 @@ public class Median {
         String[] ints2 = scanner.nextLine().split(" ");
 
         int N = ints1.length;
-        int[] array1 = new int[ints1.length];
-        int[] array2 = new int[ints2.length];
+        int[] array1 = new int[N];
+        int[] array2 = new int[N];
         for (int i = 0; i < N; i++) {
             array1[i] = Integer.parseInt(ints1[i]);
             array2[i] = Integer.parseInt(ints2[i]);
         }
 
-        int j = -1;
-        int k = -1;
+        int j = -1, k = -1;
+        int a = 0, b = 0;
         for (int i = 0; i < N + 1; i++) {
             if (j == N - 1) {
                 k++;
+                a = b;
+                b = array1[k];
                 continue;
             }
             if (k == N - 1) {
                 j++;
+                a = b;
+                b = array2[j];
                 continue;
             }
-            if (array1[j + 1] < array2[k + 1]) {
-                j++;
-            } else {
+
+            if (array1[k + 1] < array2[j + 1]) {
                 k++;
+                a = b;
+                b = array1[k];
+            } else {
+                j++;
+                a = b;
+                b = array2[j];
             }
         }
 
-        int middleA = (j != -1) ? array1[j] : array2[k + 1];
-        int middleB = (k != -1) ? array2[k] : array1[j + 1];
-        double median = middleA / 2.0 + middleB / 2.0;
-
+        float median = a / 2f + b / 2f;
         System.out.println(median);
     }
 }
